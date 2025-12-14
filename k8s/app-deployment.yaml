@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restservice
+  template:
+    metadata:
+      labels:
+        app: restservice
+    spec:
+      containers:
+        - name: restservice
+          image: restservice:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/demodb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: demo
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: demo
